@@ -67,24 +67,16 @@ const AboutMe = () => {
                 <div className="grid md:grid-cols-12 mt-9">
                     <div className="md:col-span-5">
                         <p className="text-5xl slide-up-and-fade">
-                            Hi, I&apos;m Tajmirul.
+                            Hi, I&apos;m Akshat.
                         </p>
                     </div>
                     <div className="md:col-span-7">
                         <div className="text-lg text-muted-foreground max-w-[450px]">
                             <p className="slide-up-and-fade">
-                                I&apos;m a frontend web developer dedicated to
-                                turning ideas into creative solutions. I
-                                specialize in creating seamless and intuitive
-                                user experiences.
+                                I&apos;m a Computer Science & Engineering student passionate about building secure, intelligent, and highly interactive systems. I work at the intersection of machine learning, blockchain tech, and software development.
                             </p>
                             <p className="mt-3 slide-up-and-fade">
-                                My approach focuses on creating scalable,
-                                high-performing solutions tailored to both user
-                                needs and business objectives. By prioritizing
-                                performance, accessibility, and responsiveness,
-                                I strive to deliver experiences that not only
-                                engage users but also drive tangible results.
+                                My approach combines rigorous academic theory with hands-on project building. From coding smart contracts for decentralized applications to engineering natural language pipelines and high-performance developer dashboards, I strive to design software that is both visually stunning and computationally robust.
                             </p>
                         </div>
                     </div>

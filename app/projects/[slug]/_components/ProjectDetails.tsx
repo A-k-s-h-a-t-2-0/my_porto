@@ -2,6 +2,7 @@
 import parse from 'html-react-parser';
 import ArrowAnimation from '@/components/ArrowAnimation';
 import TransitionLink from '@/components/TransitionLink';
+import Button from '@/components/Button';
 import { IProject } from '@/types';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
@@ -108,25 +109,16 @@ const ProjectDetails = ({ project }: Props) => {
                                 </span>
                             </h1>
 
-                            <div className="fade-in-later opacity-0 flex gap-2">
+                            <div className="fade-in-later opacity-0 flex items-center shrink-0 mt-2">
                                 {project.sourceCode && (
                                     <a
                                         href={project.sourceCode}
                                         target="_blank"
                                         rel="noreferrer noopener"
-                                        className="hover:text-primary"
+                                        className="inline-flex items-center gap-2 px-4 py-2 border border-foreground/30 hover:border-primary hover:text-primary rounded-full text-xs font-anton uppercase tracking-wider transition-all duration-300"
                                     >
-                                        <Github size={30} />
-                                    </a>
-                                )}
-                                {project.liveUrl && (
-                                    <a
-                                        href={project.liveUrl}
-                                        target="_blank"
-                                        rel="noreferrer noopener"
-                                        className="hover:text-primary"
-                                    >
-                                        <ExternalLink size={30} />
+                                        <Github size={18} />
+                                        <span>View Repo</span>
                                     </a>
                                 )}
                             </div>
@@ -200,6 +192,31 @@ const ProjectDetails = ({ project }: Props) => {
                         </div>
                     ))}
                 </div>
+
+                {project.liveUrl && (
+                    <div className="fade-in-later flex flex-col items-center justify-center gap-4 mt-24 mb-12 py-12 border-t border-border/20 max-w-[800px] mx-auto w-full text-center">
+                        <p className="text-muted-foreground font-anton text-sm uppercase tracking-widest">
+                            Live Project
+                        </p>
+                        <h2 className="text-2xl md:text-4xl font-anton uppercase tracking-tight">
+                            Experience it live
+                        </h2>
+                        <p className="text-muted-foreground max-w-md text-sm md:text-base mb-4">
+                            Click below to open the live working deployment of the application in a new tab.
+                        </p>
+                        <Button
+                            as="link"
+                            href={project.liveUrl}
+                            target="_blank"
+                            rel="noreferrer noopener"
+                            variant="primary"
+                            className="h-14 px-10 text-lg hover:scale-105 active:scale-95 transition-transform"
+                        >
+                            See it live
+                            <ExternalLink size={18} className="ml-2 inline" />
+                        </Button>
+                    </div>
+                )}
             </div>
         </section>
     );

@@ -15,10 +15,23 @@ const ProjectList = () => {
     const containerRef = useRef<HTMLDivElement>(null);
     const projectListRef = useRef<HTMLDivElement>(null);
     const imageContainer = useRef<HTMLDivElement>(null);
-    const imageRef = useRef<HTMLImageElement>(null);
     const [selectedProject, setSelectedProject] = useState<string | null>(
         PROJECTS[0].slug,
     );
+    const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+    React.useEffect(() => {
+        if (!selectedProject) return;
+        setCurrentImageIndex(0);
+        const interval = setInterval(() => {
+            setCurrentImageIndex((prev) => {
+                const project = PROJECTS.find((p) => p.slug === selectedProject);
+                if (!project || !project.images.length) return 0;
+                return (prev + 1) % project.images.length;
+            });
+        }, 1500);
+        return () => clearInterval(interval);
+    }, [selectedProject]);
 
     // update imageRef.current href based on the cursor hover position
     // also update image position
@@ -111,27 +124,30 @@ const ProjectList = () => {
                 <div className="group/projects relative" ref={containerRef}>
                     {selectedProject !== null && (
                         <div
-                            className="max-md:hidden absolute right-0 top-0 z-[1] pointer-events-none w-[200px] xl:w-[350px] aspect-[3/4] overflow-hidden opacity-0"
+                            className="max-md:hidden absolute right-0 top-0 z-[1] pointer-events-none w-[350px] xl:w-[600px] aspect-[16/9] overflow-hidden opacity-0 bg-background-light rounded-lg shadow-2xl"
                             ref={imageContainer}
                         >
-                            {PROJECTS.map((project) => (
-                                <Image
-                                    src={project.thumbnail}
-                                    alt="Project"
-                                    width="400"
-                                    height="500"
-                                    className={cn(
-                                        'absolute inset-0 transition-all duration-500 w-full h-full object-cover',
-                                        {
-                                            'opacity-0':
-                                                project.slug !==
-                                                selectedProject,
-                                        },
-                                    )}
-                                    ref={imageRef}
-                                    key={project.slug}
-                                />
-                            ))}
+                            {PROJECTS.map((project) => {
+                                const isCurrent = project.slug === selectedProject;
+                                if (!isCurrent) return null;
+                                return project.images.map((image, imgIdx) => (
+                                    <Image
+                                        src={image}
+                                        alt="Project screenshot"
+                                        width="600"
+                                        height="337"
+                                        className={cn(
+                                            'absolute inset-0 transition-all duration-500 w-full h-full object-cover transform',
+                                            {
+                                                'translate-x-0 opacity-100': imgIdx === currentImageIndex,
+                                                '-translate-x-full opacity-0': imgIdx < currentImageIndex,
+                                                'translate-x-full opacity-0': imgIdx > currentImageIndex,
+                                            },
+                                        )}
+                                        key={image}
+                                    />
+                                ));
+                            })}
                         </div>
                     )}
 
